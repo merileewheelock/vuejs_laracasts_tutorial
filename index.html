@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<div id="root">
+		<input type="text" id="input" v-model="message">
+		<!-- v-model binds this input to the message property of data -->
+
+		<p>The value of the input is: {{ message }}</p>
+
+		<ul>
+			<!-- <li v-for="name in names">{{ name }}</li> -->
+			<!-- Above same as below -->
+			<li v-for="name in names" v-text="name"></li>
+		</ul>
+
+		<input id="input-name" type="text">
+		<button id="button">Add name</button>
+
+	</div>
+
+	<script src="https://unpkg.com/vue@2.5.13/dist/vue.js"></script>
+
+	<script type="text/javascript">
+
+		// Without Vue:
+		// let data = {
+		// 	message: 'Hello World'
+		// };
+		// document.querySelector('#input').value = data.message;
+
+		// Below we create a Vue instance, specify an element, and bind to some data
+		var app = new Vue({
+			el: '#root',
+			data: {
+				message: 'Hello World',
+				names: ['Joe', 'Mary', 'Jane', 'Jack']
+			},
+			mounted(){ // Once everything is ready to go...
+				// alert('ready')
+				document.querySelector('#button').addEventListener('click', ()=>{
+					let name = document.querySelector('#input-name');
+					app.names.push(name.value);
+					name.value = ''; // Empties input
+				})
+			}
+		})
+
+		// Without Vue:
+		// document.querySelector('#button').addEventListener('click', ()=>{
+		// 	let name = document.querySelector('#input-name');
+		// 	app.names.push(name.value);
+		// 	name.value = ''; // Empties input
+		// })
+
+	</script>
+
+</body>
+</html>
