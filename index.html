@@ -17,8 +17,13 @@
 			<li v-for="name in names" v-text="name"></li>
 		</ul>
 
-		<input id="input-name" type="text">
-		<button id="button">Add name</button>
+		<input id="input-name" type="text" v-model="newName">
+		<!-- <button id="button">Add name</button> -->
+		<!-- v-on is used to register event listeners with vue -->
+		<!-- With directives, v-on is the directive, and anything after the : is the argument -->
+		<!-- <button v-on:click="addName">Add name</button> -->
+		<!-- v-on and @ are the name. @ is shorthand for v-on -->
+		<button @click="addName">Add name</button>
 
 	</div>
 
@@ -36,17 +41,27 @@
 		var app = new Vue({
 			el: '#root',
 			data: {
+				newName: '',
 				message: 'Hello World',
 				names: ['Joe', 'Mary', 'Jane', 'Jack']
 			},
-			mounted(){ // Once everything is ready to go...
-				// alert('ready')
-				document.querySelector('#button').addEventListener('click', ()=>{
-					let name = document.querySelector('#input-name');
-					app.names.push(name.value);
-					name.value = ''; // Empties input
-				})
+			methods: {
+				addName(){
+					// alert('adding name');
+					// this.names will automatically refer to the value in the data object
+					this.names.push(this.newName);
+					this.newName = '';
+				}
 			}
+			// mounted(){ // Once everything is ready to go...
+			// 	// alert('ready')
+			// Vanilla JavaScript -- not needed with vue. Updated with addName() method
+			// 	document.querySelector('#button').addEventListener('click', ()=>{
+			// 		let name = document.querySelector('#input-name');
+			// 		app.names.push(name.value);
+			// 		name.value = ''; // Empties input
+			// 	})
+			// }
 		})
 
 		// Without Vue:
